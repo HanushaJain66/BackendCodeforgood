@@ -57,5 +57,5 @@ const Student = mongoose.Schema({
         default:0
     },
 })
-const stuModel = mongoose.model("hackathonstudent",Student);
-export default stuModel;
+const StuModel = mongoose.model("hackathonstudent",Student);
+export default StuModel;

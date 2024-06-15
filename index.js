@@ -17,6 +17,9 @@ app.use(bodyParser.json({extended:true}));
 app.use(bodyParser.urlencoded({extended:true}));
 
 app.use('/',mentorRouter);
+app.use('/',userRoutes);
+app.use('/',studentRouter);
+
 Connection(process.env.DB_username,process.env.DB_password);
 
 app.listen(port,()=>{

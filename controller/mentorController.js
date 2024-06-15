@@ -2,7 +2,7 @@ import express from 'express';
 import MiddlewareAuth from '../controller/middleware.js';
 import Mentor from "../models/mentor.js";
 import mongoose from 'mongoose';
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
 
 // Register Function
 export const Register = async (req, res) => {
