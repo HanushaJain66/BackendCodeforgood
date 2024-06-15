@@ -9,6 +9,10 @@ const Student = mongoose.Schema({
         required:true,
         default:0,
     },
+    mentor:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'mentors'
+    },
     dob:{
         type:Date,
         required:true,

@@ -26,7 +26,7 @@ const mentorSchema = mongoose.Schema({
     },
     PAN:{
         type:String,
-        required:true,
+        default:'        ',
         minlength:8,
     },
     address:{
@@ -46,7 +46,6 @@ const mentorSchema = mongoose.Schema({
     },
     role:{
         type:String,
-        required: true
     },
     stuId:[{
             type:mongoose.Schema.Types.ObjectId,

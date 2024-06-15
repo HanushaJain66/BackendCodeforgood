@@ -2,7 +2,7 @@ import stuModel from '../models/student.js'
 
 export const createStudent = async (req,res)=>{
     try{
-        if(!req.body.name || !req.body.age || !req.body.dob || !req.body.currClass){
+        if(!req.body.name || !req.body.age || !req.body.dob || !req.body.currClass || !req.headers.mentor){
             return res.status(400).json({
                 status:"success",
                 message:"All Fields aree required"
@@ -12,8 +12,10 @@ export const createStudent = async (req,res)=>{
             name:req.body.name,
             age:req.body.age,
             dob:req.body.age,
-            currClass:req.body.currClass
+            currClass:req.body.currClass,
+            mentor:req.headers.mentor
         })
+
         await newStudent.save();
         return res.status(200).json({
             status:"success",
@@ -119,6 +121,28 @@ export const updateStudent = async (req,res)=>{
         return res.status({
             status:"fail",
             message:"Error while Updating the User"
+        })
+    }
+}
+
+export const allStudentUnderMentor = async (req,res)=>{
+    try{
+        const getData = await stuModel.find({mentor:req.params.mentorId});
+        if(!getData){
+            return res.status(400).json({
+                status:"fail",
+                message:"No Mentor Found"
+            })
+        }
+        return res.status(200).json({
+            status:"success",
+            allStudent:getData
+        })
+    } catch(error){
+        console.log("Error while getting student under the Mentor");
+        res.status(500).json({
+            status:"fail",
+            message:"Error while getting student under mentor"
         })
     }
 }
