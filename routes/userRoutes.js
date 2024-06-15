@@ -1,5 +1,4 @@
 import express from 'express';
-import MiddlewareAuth from '../controller/middleware.js';
 import { signUpUser , LoginUser } from '../controller/userController.js';
 const userRoutes = express.Router();
 

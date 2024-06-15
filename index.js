@@ -4,7 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import userRoutes from './routes/userRoutes.js';
 import bodyParser from 'body-parser';
-
+import studentRouter from './routes/studentRoutes.js';
 dotenv.config();
 
 const port = 8000;
@@ -16,6 +16,8 @@ app.use(bodyParser.json({extended:true}));
 app.use(bodyParser.urlencoded({extended:true}));
 
 app.use('/',userRoutes);
+app.use('/',studentRouter);
+
 Connection(process.env.DB_username,process.env.DB_password);
 
 app.listen(port,()=>{
