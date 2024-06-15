@@ -16,10 +16,8 @@ app.use(cors());
 app.use(bodyParser.json({extended:true}));
 app.use(bodyParser.urlencoded({extended:true}));
 
+app.use('/',mentorRouter);
 Connection(process.env.DB_username,process.env.DB_password);
-
-
-
 
 app.listen(port,()=>{
     console.log("backend is working on port ",port);
