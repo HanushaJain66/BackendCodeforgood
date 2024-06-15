@@ -2,14 +2,7 @@ import mongoose from "mongoose";
 const Student = mongoose.Schema({
     name:{
         type:String,
-        unique:true,
         required:true
-    },
-    email:{
-        type:String,
-        unique:true,
-        minlength:4,
-        default:''
     },
     age:{
         type:Number,
@@ -40,22 +33,15 @@ const Student = mongoose.Schema({
     socioEmotion:{
         type:Number,
         default:0,
-        enum:[0,1,2,3,4,5]
     },
     learning:{
         type:Number,
         default:0,
-        enum:[0,1,2,3,4,5]
     },
     numeric:{
         type:Number,
         default:0,
-        enum:[0,1,2,3,4,5]
-    },
-    totalClassConducted:{
-        type:Number,
-        default:0
     },
 })
-const StuModel = mongoose.model("hackathonstudent",Student);
+const StuModel = mongoose.model("hackathonstudents",Student);
 export default StuModel;

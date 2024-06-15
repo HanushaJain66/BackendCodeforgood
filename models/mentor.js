@@ -47,9 +47,13 @@ const mentorSchema = mongoose.Schema({
     role:{
         type:String,
         required: true
-    }
+    },
+    stuId:[{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'hackathonstudents'
+        }
+    ]
 });
 
 const Mentor = mongoose.model('mentors',mentorSchema);
-
 export default Mentor;

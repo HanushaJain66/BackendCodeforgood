@@ -15,8 +15,12 @@ export const createStudent = async (req,res)=>{
             currClass:req.body.currClass
         })
         await newStudent.save();
+        return res.status(200).json({
+            status:"success",
+            message:"Student Created Successfully"
+        })
     } catch(error){
-        console.log("Error while creating a Student");
+        console.log("Error while creating a Student",error.message);
         return res.status(500).json({
             status:"fail",
             message:"Error while creating a User"
@@ -27,7 +31,7 @@ export const createStudent = async (req,res)=>{
 export const attendence =  async (req,res) =>{
     try{
         const stuId = req.params.stuId;
-        const findStudent = await User.findById(stuId);
+        const findStudent = await stuModel.findById(stuId);
         if(findStudent){
             findStudent.totalClassAttended = findStudent.totalClassAttended+1;
         } else{
@@ -36,6 +40,7 @@ export const attendence =  async (req,res) =>{
                 message:"No Student with this Id Found"
             })
         }
+        await findStudent.save()
         return res.status(200).json({
             status:'Success',
             message:"Attendence Successfull"
@@ -51,8 +56,9 @@ export const attendence =  async (req,res) =>{
 
 export const getStudentDetails = async (req,res)=>{
     try{
-        const stuId = req.params.studId;
-        const findStudent = await Studnet.findById(stuId);
+        const stuId = req.params.stuId;
+        console.log(stuId);
+        const findStudent = await stuModel.findById(stuId);
         if(!findStudent){
             return res.status(409).json({
                 status:"fail",
@@ -62,10 +68,10 @@ export const getStudentDetails = async (req,res)=>{
         return res.status(200).json({
             status:"Success",
             message:"Student details fetched Successfully",
-            student:findStudentd
+            student:findStudent
         })
     } catch(error){
-        console.log("Error while getting student Details");
+        console.log("Error while getting student Details",error.message);
         res.status(500).json({
             status:"fail",
             message:"Error while getting student details"
@@ -76,14 +82,15 @@ export const getStudentDetails = async (req,res)=>{
 export const updateStudent = async (req,res)=>{
     try{
         const stuId = req.params.stuId;
-        const findAndUpdateStudent = await Blog.findOneAndUpdate({ _id: stuId }, { $set: req.body, updatedAt: Date.now() }, { new: true });
+        const findAndUpdateStudent = await stuModel.findOneAndUpdate({ _id: stuId }, { $set: req.body}, { new: true });
         if(req.body.currClass){
             findAndUpdateStudent.levels = 'a'
             findAndUpdateStudent.socioEmotion = 0;
             findAndUpdateStudent.numeric = 0;
             findAndUpdateStudent.learning = 0;
         }
-        if(req.body.socioEmotion===5 || req.body.learning===5 || req.body.numeric===5){
+        console.log(findAndUpdateStudent);
+        if(findAndUpdateStudent.socioEmotion===5 && findAndUpdateStudent.learning===5 && findAndUpdateStudent.numeric===5){
             const levels = findAndUpdateStudent.levels;
             if(levels==='a'){
                 findAndUpdateStudent.socioEmotion = 0;
@@ -102,11 +109,16 @@ export const updateStudent = async (req,res)=>{
                 findAndUpdateStudent.levels = 'd';
             }
         }
+        await findAndUpdateStudent.save();
         return res.status(200).json({
             status:"success",
-            message:"Error while Updating the Student Schema"
+            message:"user Updated Successfully"
         })
     } catch(error){
-        console.log("Error while c")
+        console.log(error.message);
+        return res.status({
+            status:"fail",
+            message:"Error while Updating the User"
+        })
     }
 }

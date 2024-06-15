@@ -1,5 +1,5 @@
 import express from 'express';
-import { createStudent ,getStudentDetails,attendence} from '../controller/studentController.js';
+import { createStudent ,getStudentDetails,attendence,updateStudent} from '../controller/studentController.js';
 const studentRouter = express.Router();
 
 studentRouter.route('/createStudent')
@@ -7,6 +7,7 @@ studentRouter.route('/createStudent')
 
 studentRouter.route('/student/:stuId')
 .get(getStudentDetails)
-.put(attendence);
+.put(updateStudent)
+.post(attendence);
 
 export default studentRouter;
